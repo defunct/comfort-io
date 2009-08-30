@@ -14,26 +14,20 @@ import org.testng.annotations.Test;
  * @author Alan Gutierrez
  */
 public class GlobTest {
-    /**
-     * Test the string constructor.
-     */
+    /** Test the string constructor. */
     @Test
     public void constructor() {
         new Glob("");
     }
 
-    /**
-     * Test many any single part.
-     */
+    /** Test many any single part. */
     @Test
     public void starGlob() {
         Glob glob = new Glob("*");
         assertTrue(glob.match(new File("hello")));
     }
 
-    /**
-     * Test match exact.
-     */
+    /** Test match exact. */
     @Test
     public void exactGlob() {
         Glob glob = new Glob("hello");
@@ -41,6 +35,7 @@ public class GlobTest {
         assertFalse(glob.match(new File("world")));
     }
 
+    /** Test literal match path. */
     @Test
     public void exactPathGlob() {
         Glob glob = new Glob("hello/world");
@@ -49,6 +44,7 @@ public class GlobTest {
         assertFalse(glob.match(new File("hello/world/nurse")));
     }
 
+    /** Test two match anys. */
     @Test
     public void starPathGlob() {
         Glob glob = new Glob("*/*");
@@ -57,6 +53,7 @@ public class GlobTest {
         assertFalse(glob.match(new File("hello/world/nurse")));
     }
 
+    /** Test match any parts multiple. */
     @Test
     public void depthGlob() {
         Glob glob = new Glob("**/hello");
@@ -64,6 +61,7 @@ public class GlobTest {
         assertTrue(glob.match(new File("world/world/hello")));
     }
 
+    /** Test a match any parts multiple with some trailing literals. */
     @Test
     public void depthExactGlob() {
         Glob glob = new Glob("**/hello/world");
@@ -73,6 +71,7 @@ public class GlobTest {
         assertFalse(glob.match(new File("world/world/hello")));
     }
 
+    /** Test two match any multiple conidtions. */
     @Test
     public void depthInMiddleGlob() {
         Glob glob = new Glob("**/hello/**/world");
@@ -83,6 +82,7 @@ public class GlobTest {
         assertFalse(glob.match(new File("world/world/hello")));
     }
 
+    /** Test matching any file at any depth. */
     @Test
     public void matchAnything() {
         Glob glob = new Glob("**/*");
@@ -93,6 +93,7 @@ public class GlobTest {
         assertTrue(glob.match(new File("world/world/hello")));
     }
 
+    /** Test file name wildcard matching. */
     @Test
     public void matchWildcard() {
         Glob glob = new Glob("he*o");
@@ -101,6 +102,7 @@ public class GlobTest {
         assertFalse(glob.match(new File("world")));
     }
 
+    /** Test the single character wildcard. */
     @Test
     public void matchWildchar() {
         Glob glob = new Glob("he?o");
@@ -110,6 +112,7 @@ public class GlobTest {
         assertFalse(glob.match(new File("world")));
     }
 
+    /** Test equality and hash codes of glob and parts. */
     @Test
     public void equality() {
         assertEquals(new AnyOne(), new AnyOne());
