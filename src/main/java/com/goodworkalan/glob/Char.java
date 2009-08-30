@@ -6,7 +6,7 @@ package com.goodworkalan.glob;
  * @author Alan Gutierrez.
  * 
  */
-final class Char extends Match {
+final class Char extends Part {
     /** The single character to match. */
     private final char ch;
 

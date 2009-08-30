@@ -5,7 +5,7 @@ package com.goodworkalan.glob;
  *
  * @author Alan Gutierrez
  */
-final class FileName extends Match {
+final class FileName extends Part {
     /** The file name to match. */
     private final String fileName;
 

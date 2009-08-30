@@ -11,7 +11,7 @@ import java.util.StringTokenizer;
  */
 public class Glob {
     /** The array of part matches. */
-    private final Match[] matches;
+    private final Part[] matches;
 
     /**
      * Create a glob from the given glob pattern.
@@ -21,7 +21,7 @@ public class Glob {
      */
     public Glob(String pattern) {
         String[] parts = pattern.split("/");
-        Match[] matches = new Match[parts.length];
+        Part[] matches = new Part[parts.length];
         for (int i = 0; i < parts.length; i++) {
             if (parts[i].equals("*")) {
                 matches[i] = new AnyOne();
@@ -51,7 +51,7 @@ public class Glob {
         while (tokens.hasMoreElements()) {
             parts[index++] = tokens.nextToken();
         }
-        return Match.descend(parts, parts.length, 0, matches, 0);
+        return Part.descend(parts, parts.length, 0, matches, 0);
     }
 
     /**

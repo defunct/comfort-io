@@ -5,9 +5,9 @@ package com.goodworkalan.glob;
  * 
  * @author Alan Gutierrez
  */
-class FilePattern extends Match {
+class FilePattern extends Part {
     /** The matches to apply against the chracters in the file part. */
-    private final Match[] matches;
+    private final Part[] matches;
 
     /**
      * Create a file pattern match.
@@ -16,7 +16,7 @@ class FilePattern extends Match {
      *            The file pattern part.
      */
     public FilePattern(String pattern) {
-        Match[] matches = new Match[pattern.length()];
+        Part[] matches = new Part[pattern.length()];
         for (int i = 0; i < pattern.length(); i++) {
             char ch = pattern.charAt(i);
             switch (ch) {

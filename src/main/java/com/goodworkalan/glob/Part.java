@@ -6,7 +6,7 @@ package com.goodworkalan.glob;
  * 
  * @author Alan Gutierrez
  */
-abstract class Match {
+abstract class Part {
     /**
      * Test this match against the object found at the given offset into the
      * given array. This default implementation always returns true.
@@ -60,7 +60,7 @@ abstract class Match {
      *            The start index for the match array.
      * @return True if the parts are matched by the given matches.
      */
-    public static boolean descend(Object parts, int length, int offset, Match[] matches, int matchIndex) {
+    public static boolean descend(Object parts, int length, int offset, Part[] matches, int matchIndex) {
         if (matches[matchIndex].multiple()) {
             int partsLength = length - offset;
             int matchesLength = matches.length - matchIndex;
@@ -100,7 +100,7 @@ abstract class Match {
      * @return True if the array parts match the matches for the given number of
      *         repetitions.
      */
-    private static boolean match(Object parts, int length, int partIndex, Match[] matches, int matchIndex, int repeat) {
+    private static boolean match(Object parts, int length, int partIndex, Part[] matches, int matchIndex, int repeat) {
         boolean matched = true;
         for (int i = 0; matched && i < repeat; i++) {
             if (!matches[matchIndex].match(parts, partIndex + i)) {

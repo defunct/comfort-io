@@ -5,7 +5,7 @@ package com.goodworkalan.glob;
  *
  * @author Alan Gutierrez
  */
-final class AnyOne extends Match {
+final class AnyOne extends Part {
     /**
      * This any one match is equal to the given object if it is also an any one
      * match.

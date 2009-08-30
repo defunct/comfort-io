@@ -5,7 +5,7 @@ package com.goodworkalan.glob;
  * 
  * @author Alan Gutierrez
  */
-class AnyOneOrMore extends Match {
+class AnyOneOrMore extends Part {
     /**
      * Return true indicating that this match can match multiple parts
      * of a path.
