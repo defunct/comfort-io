@@ -1,5 +1,6 @@
 package com.goodworkalan.glob;
 
+
 /**
  * A utility class representing a query against the file system.
  * 
