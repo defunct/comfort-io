@@ -1,9 +1,15 @@
 package com.goodworkalan.glob;
 
-import java.io.File;
-import static org.testng.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertTrue;
 
-import static org.mockito.Mockito.*;
+import java.io.File;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 import org.testng.annotations.Test;
 
 /**
@@ -57,5 +63,14 @@ public class FilesTest {
         } catch (GlobException e) {
             assertEquals(e.getCode(), GlobException.COPY_FAILURE);
         }
+    }
+    
+    /** Test path creation. */
+    @Test
+    public void path() {
+        Set<File> path = new LinkedHashSet<File>();
+        path.add(new File("foo/bar"));
+        path.add(new File("baz"));
+        assertEquals(Files.path(path), "foo/bar:baz");
     }
 }

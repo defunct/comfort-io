@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
+import java.util.Set;
 
 /**
  * Utility methods for files and directories.
@@ -55,5 +56,21 @@ public class Files {
             }
         }
         return file.delete();
+    }
+
+    /**
+     * Create a path from the given set of files.
+     * 
+     * @param path
+     *            A set of files.
+     */
+    public final static String path(Set<File> path) {
+        StringBuilder string = new StringBuilder();
+        String separator = "";
+        for (File file : path) {
+            string.append(separator).append(file.toString());
+            separator = File.pathSeparator;
+        }
+        return string.toString();
     }
 }

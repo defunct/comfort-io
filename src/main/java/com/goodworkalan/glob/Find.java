@@ -41,6 +41,22 @@ public class Find {
     }
 
     /**
+     * Exclude the files that match the given pattern.
+     * 
+     * @param pattern
+     *            A glob pattern to match.
+     */
+    public Find exclude(String pattern) {
+        final Glob glob = new Glob(pattern);
+        filters.add(new FileFilter() {
+            public boolean accept(File file) {
+                return ! glob.match(file);
+            }
+        });
+        return this;
+    }
+
+    /**
      * Test the find conditions against the files in the given directory.
      * 
      * @param depth

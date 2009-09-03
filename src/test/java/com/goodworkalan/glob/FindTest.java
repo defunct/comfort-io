@@ -40,4 +40,15 @@ public class FindTest {
         assertFalse(files.contains(new File("com/goodworkalan/glob")));
         assertTrue(files.contains(new File("com/goodworkalan/glob/FindTest.java")));
     }
+    
+    /** Test the exclude condition. */
+    @Test
+    public void exclude() {
+        Set<File> files = new Find().include("**/*.java").exclude("**/FilesTest.java").find(new File("src/test/java"));
+        assertFalse(files.contains(new File("com")));
+        assertFalse(files.contains(new File("com/goodworkalan")));
+        assertFalse(files.contains(new File("com/goodworkalan/glob")));
+        assertFalse(files.contains(new File("com/goodworkalan/glob/FilesTest.java")));
+        assertTrue(files.contains(new File("com/goodworkalan/glob/FindTest.java")));
+    }
 }
