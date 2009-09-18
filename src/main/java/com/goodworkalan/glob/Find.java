@@ -1,12 +1,10 @@
 package com.goodworkalan.glob;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.StringTokenizer;
 
 
 /**
@@ -16,7 +14,7 @@ import java.util.StringTokenizer;
  */
 public class Find {
     /** The list of filters to apply to each file found in a directory tree. */
-    private final List<FileFilter> filters = new ArrayList<FileFilter>();
+    private final List<FindFilter> filters = new ArrayList<FindFilter>();
     
     /**
      * Create a new find query.
@@ -32,9 +30,9 @@ public class Find {
      */
     public Find include(String pattern) {
         final Glob glob = new Glob(pattern);
-        filters.add(new FileFilter() {
-            public boolean accept(File file) {
-                return glob.match(file);
+        filters.add(new FindFilter() {
+            public boolean accept(File base, String path) {
+                return glob.match(path);
             }
         });
         return this;
@@ -48,9 +46,9 @@ public class Find {
      */
     public Find exclude(String pattern) {
         final Glob glob = new Glob(pattern);
-        filters.add(new FileFilter() {
-            public boolean accept(File file) {
-                return ! glob.match(file);
+        filters.add(new FindFilter() {
+            public boolean accept(File base, String path) {
+                return ! glob.match(path);
             }
         });
         return this;
@@ -61,32 +59,25 @@ public class Find {
      * 
      * @param depth
      *            The depth of this directory relative to the base directory.
+     * @param base
+     *            The base directory of the find.
      * @param dir
      *            The directory files to test.
      * @param matches
      *            The set of files that match the conditions.
      */
-    private void find(int depth, File dir, Set<File> matches) {
+    private void find(int depth, File base, File dir, Set<File> matches) {
         for (File file : dir.listFiles()) {
+            File relative = Files.relativize(base, file);
             boolean found = true;
             for (int i = 0, stop = filters.size(); found && i < stop; i++) {
-                found = filters.get(i).accept(file);
+                found = filters.get(i).accept(base, relative.toString());
             }
             if (found) {
-                StringTokenizer parts = new StringTokenizer(file.getAbsolutePath(), File.separator);
-                for (int i = 0, stop = parts.countTokens() - depth; i < stop; i++) {
-                    parts.nextToken();
-                }
-                StringBuilder fileName = new StringBuilder();
-                String separator = "";
-                while (parts.hasMoreTokens()) {
-                    fileName.append(separator).append(parts.nextToken());
-                    separator = File.separator;
-                }
-                matches.add(new File(fileName.toString()));
+                matches.add(relative);
             }
             if (file.isDirectory()) {
-                find(depth + 1, file, matches);
+                find(depth + 1, base, file, matches);
             }
         }
     }
@@ -94,6 +85,8 @@ public class Find {
     /**
      * Recursively search the given directory for the files that match the
      * conditions of this query.
+     * <p>
+     * FIXME Almost certainly want to return file name instead of file.
      * 
      * @param directory
      *            The directory to search.
@@ -102,7 +95,7 @@ public class Find {
     public Set<File> find(File directory) {
         Set<File> matches = new LinkedHashSet<File>();
         if (directory.isDirectory()) {
-            find(1, directory, matches);
+            find(1, directory, directory, matches);
         }
         return matches;
     }

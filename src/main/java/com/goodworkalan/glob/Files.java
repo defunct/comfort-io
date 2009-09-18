@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
+import java.util.LinkedList;
 import java.util.Set;
 
 /**
@@ -72,5 +73,22 @@ public class Files {
             separator = File.pathSeparator;
         }
         return string.toString();
+    }
+    
+    public final static File relativize(File base, File file) {
+        LinkedList<File> parts = new LinkedList<File>();
+        File iterator = file;
+        while (!iterator.equals(base)) {
+            parts.addFirst(iterator);
+            iterator = iterator.getParentFile();
+            if (iterator == null) {
+                throw new IllegalArgumentException();
+            }
+        }
+        File relative = new File(parts.removeFirst().getName());
+        while (!parts.isEmpty()) {
+            relative = new File(relative, parts.removeFirst().getName());
+        }
+        return relative;
     }
 }

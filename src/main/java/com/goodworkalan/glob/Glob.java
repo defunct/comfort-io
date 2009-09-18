@@ -36,16 +36,20 @@ public class Glob {
         }
         this.matches = matches;
     }
+    
+    public boolean match(File file) {
+        return match(file.toString());
+    }
 
     /**
      * Match against the given file.
      * 
      * @param file
-     *            The file to match.
+     *            The file path to match.
      * @return True if this glob matches the given file.
      */
-    public boolean match(File file) {
-        StringTokenizer tokens = new StringTokenizer(file.toString(), File.separator);
+    public boolean match(String file) {
+        StringTokenizer tokens = new StringTokenizer(file, File.separator);
         String[] parts = new String[tokens.countTokens()];
         int index = 0;
         while (tokens.hasMoreElements()) {
