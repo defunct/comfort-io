@@ -24,31 +24,31 @@ public class FindTest {
     /** Test the default constructor. */
     @Test
     public void findAll() {
-        Set<File> files = new Find().find(new File("src/test/java"));
-        assertTrue(files.contains(new File("com")));
-        assertTrue(files.contains(new File("com/goodworkalan")));
-        assertTrue(files.contains(new File("com/goodworkalan/glob")));
-        assertTrue(files.contains(new File("com/goodworkalan/glob/FindTest.java")));
+        Set<String> files = new Find().find(new File("src/test/java"));
+        assertTrue(files.contains("com"));
+        assertTrue(files.contains("com/goodworkalan"));
+        assertTrue(files.contains("com/goodworkalan/glob"));
+        assertTrue(files.contains("com/goodworkalan/glob/FindTest.java"));
     }
     
     /** Test the include condition. */
     @Test
     public void include() {
-        Set<File> files = new Find().include("**/*.java").find(new File("src/test/java"));
-        assertFalse(files.contains(new File("com")));
-        assertFalse(files.contains(new File("com/goodworkalan")));
-        assertFalse(files.contains(new File("com/goodworkalan/glob")));
-        assertTrue(files.contains(new File("com/goodworkalan/glob/FindTest.java")));
+        Set<String> files = new Find().include("**/*.java").find(new File("src/test/java"));
+        assertFalse(files.contains("com"));
+        assertFalse(files.contains("com/goodworkalan"));
+        assertFalse(files.contains("com/goodworkalan/glob"));
+        assertTrue(files.contains("com/goodworkalan/glob/FindTest.java"));
     }
     
     /** Test the exclude condition. */
     @Test
     public void exclude() {
-        Set<File> files = new Find().include("**/*.java").exclude("**/FilesTest.java").find(new File("src/test/java"));
-        assertFalse(files.contains(new File("com")));
-        assertFalse(files.contains(new File("com/goodworkalan")));
-        assertFalse(files.contains(new File("com/goodworkalan/glob")));
-        assertFalse(files.contains(new File("com/goodworkalan/glob/FilesTest.java")));
-        assertTrue(files.contains(new File("com/goodworkalan/glob/FindTest.java")));
+        Set<String> files = new Find().include("**/*.java").exclude("**/FilesTest.java").find(new File("src/test/java"));
+        assertFalse(files.contains("com"));
+        assertFalse(files.contains("com/goodworkalan"));
+        assertFalse(files.contains("com/goodworkalan/glob"));
+        assertFalse(files.contains("com/goodworkalan/glob/FilesTest.java"));
+        assertTrue(files.contains("com/goodworkalan/glob/FindTest.java"));
     }
 }

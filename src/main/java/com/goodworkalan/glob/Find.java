@@ -66,12 +66,12 @@ public class Find {
      * @param matches
      *            The set of files that match the conditions.
      */
-    private void find(int depth, File base, File dir, Set<File> matches) {
+    private void find(int depth, File base, File dir, Set<String> matches) {
         for (File file : dir.listFiles()) {
-            File relative = Files.relativize(base, file);
+            String relative = Files.relativize(base, file).toString();
             boolean found = true;
             for (int i = 0, stop = filters.size(); found && i < stop; i++) {
-                found = filters.get(i).accept(base, relative.toString());
+                found = filters.get(i).accept(base, relative);
             }
             if (found) {
                 matches.add(relative);
@@ -90,10 +90,10 @@ public class Find {
      * 
      * @param directory
      *            The directory to search.
-     * @return A set of files that match the conditions of this query.
+     * @return A set of file names that match the conditions of this query.
      */
-    public Set<File> find(File directory) {
-        Set<File> matches = new LinkedHashSet<File>();
+    public Set<String> find(File directory) {
+        Set<String> matches = new LinkedHashSet<String>();
         if (directory.isDirectory()) {
             find(1, directory, directory, matches);
         }
