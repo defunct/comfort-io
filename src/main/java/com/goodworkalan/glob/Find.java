@@ -23,6 +23,16 @@ public class Find {
     }
 
     /**
+     * Return true if this find has filters. Sometimes an operation may with so
+     * specify default filters if not otherwise specified.
+     * 
+     * @return True if this file search has filters.
+     */
+    public boolean hasFilters() {
+        return ! filters.isEmpty();
+    }
+
+    /**
      * Include files that match the given pattern.
      * 
      * @param pattern
