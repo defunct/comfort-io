@@ -56,7 +56,7 @@ public class Files {
                 }
             }
         }
-        return file.delete();
+        return file.delete() || ! file.exists();
     }
 
     /**

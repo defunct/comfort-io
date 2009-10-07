@@ -30,6 +30,7 @@ public class FilesTest {
         File undeletable = mock(File.class);
         when(undeletable.isDirectory()).thenReturn(false);
         when(undeletable.delete()).thenReturn(false);
+        when(undeletable.exists()).thenReturn(true);
         File file = mock(File.class);
         when(file.isDirectory()).thenReturn(true);
         when(file.listFiles()).thenReturn(new File[] { undeletable });
