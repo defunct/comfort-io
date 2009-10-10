@@ -1,9 +1,9 @@
 package com.goodworkalan.glob;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
-import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 
@@ -14,7 +14,7 @@ import java.util.Set;
  */
 public class Find {
     /** The list of filters to apply to each file found in a directory tree. */
-    private final List<FindFilter> filters = new ArrayList<FindFilter>();
+    private final Map<String, FindFilter> filters = new HashMap<String, FindFilter>();
     
     /**
      * Create a new find query.
@@ -39,12 +39,21 @@ public class Find {
      *            A glob pattern to match.
      */
     public Find include(String pattern) {
-        final Glob glob = new Glob(pattern);
-        filters.add(new FindFilter() {
-            public boolean accept(File base, String path) {
-                return glob.match(path);
-            }
-        });
+        GlobFindFilter globs = (GlobFindFilter) filters.get("include");
+        if (globs == null) {
+            globs = new GlobFindFilter() {
+                public boolean accept(File base, String path) {
+                    for (Glob glob : globs) {
+                        if (glob.match(path)) {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+            };
+            filters.put("include", globs);
+        }
+        globs.globs.add(new Glob(pattern));
         return this;
     }
 
@@ -55,12 +64,21 @@ public class Find {
      *            A glob pattern to match.
      */
     public Find exclude(String pattern) {
-        final Glob glob = new Glob(pattern);
-        filters.add(new FindFilter() {
-            public boolean accept(File base, String path) {
-                return ! glob.match(path);
-            }
-        });
+        GlobFindFilter globs = (GlobFindFilter) filters.get("exclude");
+        if (globs == null) {
+            globs = new GlobFindFilter() {
+                public boolean accept(File base, String path) {
+                    for (Glob glob : globs) {
+                        if (glob.match(path)) {
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+            };
+            filters.put("exclude", globs);
+        }
+        globs.globs.add(new Glob(pattern));
         return this;
     }
 
@@ -80,8 +98,11 @@ public class Find {
         for (File file : dir.listFiles()) {
             String relative = Files.relativize(base, file).toString();
             boolean found = true;
-            for (int i = 0, stop = filters.size(); found && i < stop; i++) {
-                found = filters.get(i).accept(base, relative);
+            for (FindFilter filter : filters.values()) { 
+                found = filter.accept(base, relative);
+                if (!found) {
+                    break;
+                }
             }
             if (found) {
                 matches.add(relative);
