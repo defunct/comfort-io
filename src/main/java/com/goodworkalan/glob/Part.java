@@ -52,7 +52,7 @@ abstract class Part {
      *            An array of parts to match.
      * @param length
      *            The length of the array of parts to match.
-     * @param partIndex
+     * @param offset
      *            An offset into the array of parts to match.
      * @param matches
      *            An array of matches.
@@ -75,9 +75,8 @@ abstract class Part {
                 }
             }
             return false;
-        } else {
-            return match(parts, length, offset, matches, matchIndex, 1);
         }
+        return match(parts, length, offset, matches, matchIndex, 1);
     }
 
     /**

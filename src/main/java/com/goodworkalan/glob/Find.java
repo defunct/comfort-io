@@ -116,8 +116,6 @@ public class Find {
     /**
      * Recursively search the given directory for the files that match the
      * conditions of this query.
-     * <p>
-     * FIXME Almost certainly want to return file name instead of file.
      * 
      * @param directory
      *            The directory to search.

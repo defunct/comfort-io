@@ -57,6 +57,6 @@ final class Char extends Part {
      */
     @Override
     public int hashCode() {
-        return (int) ch;
+        return ch;
     }
 }

@@ -37,6 +37,7 @@ public class Glob {
         this.matches = matches;
     }
     
+    // TODO Document.
     public boolean match(File file) {
         return match(file.toString());
     }

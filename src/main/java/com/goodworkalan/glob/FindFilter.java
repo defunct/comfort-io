@@ -10,5 +10,6 @@ import java.io.File;
  * @author Alan Gutierrez
  */
 public interface FindFilter {
+    // TODO Document.
     public boolean accept(File base, String filePath);
 }
