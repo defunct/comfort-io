@@ -1,16 +1,16 @@
-package com.goodworkalan.glob;
+package com.goodworkalan.comfort.io;
 
 import com.goodworkalan.cassandra.CassandraException;
 import com.goodworkalan.cassandra.Report;
 
 /**
  * A general purpose exception that indicates that an error occurred in one of
- * the classes in the glob package.
+ * the classes in the comfort.io package.
  * 
  * 
  * @author Alan Gutierrez
  */
-public class GlobException extends CassandraException {
+public class ComfortIOException extends CassandraException {
     /** The serial version id. */
     private static final long serialVersionUID = 1L;
     
@@ -25,7 +25,7 @@ public class GlobException extends CassandraException {
      * @param cause
      *            The cause.
      */
-    public GlobException(int code, Throwable cause) {
+    public ComfortIOException(int code, Throwable cause) {
         super(code, new Report(), cause);
     }
 }

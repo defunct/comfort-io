@@ -1,4 +1,4 @@
-package com.goodworkalan.glob;
+package com.goodworkalan.comfort.io;
 
 /**
  * Match any multiple file parts, a depth match.

@@ -1,4 +1,4 @@
-package com.goodworkalan.glob;
+package com.goodworkalan.comfort.io;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
@@ -7,6 +7,13 @@ import static org.testng.Assert.assertTrue;
 import java.io.File;
 
 import org.testng.annotations.Test;
+
+import com.goodworkalan.comfort.io.AnyOne;
+import com.goodworkalan.comfort.io.AnyOneOrMore;
+import com.goodworkalan.comfort.io.Char;
+import com.goodworkalan.comfort.io.FileName;
+import com.goodworkalan.comfort.io.FilePattern;
+import com.goodworkalan.comfort.io.Glob;
 
 /**
  * Unit tests for the Glob class.

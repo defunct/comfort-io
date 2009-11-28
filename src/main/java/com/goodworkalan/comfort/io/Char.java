@@ -1,4 +1,4 @@
-package com.goodworkalan.glob;
+package com.goodworkalan.comfort.io;
 
 /**
  * Match a single character in a file pattern match.

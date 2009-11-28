@@ -1,6 +1,6 @@
-package com.goodworkalan.glob;
+package com.goodworkalan.comfort.io;
 
-import static com.goodworkalan.glob.GlobException.COPY_FAILURE;
+import static com.goodworkalan.comfort.io.ComfortIOException.COPY_FAILURE;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -36,7 +36,7 @@ public class Files {
             srcChannel.close();
             dstChannel.close();
         } catch (IOException e) {
-            throw new GlobException(COPY_FAILURE, e)
+            throw new ComfortIOException(COPY_FAILURE, e)
                 .put("source", source).put("destination", destination);
         }
     }

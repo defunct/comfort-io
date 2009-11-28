@@ -1,4 +1,4 @@
-package com.goodworkalan.glob;
+package com.goodworkalan.comfort.io;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -11,6 +11,9 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.testng.annotations.Test;
+
+import com.goodworkalan.comfort.io.ComfortIOException;
+import com.goodworkalan.comfort.io.Files;
 
 /**
  * Unit tests for the Files utility methods.
@@ -61,8 +64,8 @@ public class FilesTest {
     public void copyFailure() {
         try {
             Files.copy(new File("src/test/java/com/goodworkalan/glob/Foo.java"), new File("target/junk"));
-        } catch (GlobException e) {
-            assertEquals(e.getCode(), GlobException.COPY_FAILURE);
+        } catch (ComfortIOException e) {
+            assertEquals(e.getCode(), ComfortIOException.COPY_FAILURE);
         }
     }
     

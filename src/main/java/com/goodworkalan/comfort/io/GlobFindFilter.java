@@ -1,4 +1,4 @@
-package com.goodworkalan.glob;
+package com.goodworkalan.comfort.io;
 
 import java.util.ArrayList;
 import java.util.List;

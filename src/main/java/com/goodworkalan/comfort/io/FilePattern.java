@@ -1,4 +1,4 @@
-package com.goodworkalan.glob;
+package com.goodworkalan.comfort.io;
 
 /**
  * Match a file part with a wildcard pattern in a file glob.

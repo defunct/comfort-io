@@ -1,4 +1,4 @@
-package com.goodworkalan.glob;
+package com.goodworkalan.comfort.io;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
@@ -8,6 +8,8 @@ import java.io.File;
 import java.util.Set;
 
 import org.testng.annotations.Test;
+
+import com.goodworkalan.comfort.io.Find;
 
 /**
  * Unit tests for the Find class.
