@@ -6,7 +6,6 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
-
 /**
  * A utility class representing a query against the file system.
  * 
@@ -15,7 +14,7 @@ import java.util.Set;
 public class Find {
     /** The list of filters to apply to each file found in a directory tree. */
     private final Map<String, FindFilter> filters = new HashMap<String, FindFilter>();
-    
+
     /**
      * Create a new find query.
      */
@@ -29,7 +28,7 @@ public class Find {
      * @return True if this file search has filters.
      */
     public boolean hasFilters() {
-        return ! filters.isEmpty();
+        return !filters.isEmpty();
     }
 
     /**
@@ -37,6 +36,8 @@ public class Find {
      * 
      * @param pattern
      *            A glob pattern to match.
+     * @return This <code>Find</code> object in order to continue specifying
+     *         criteria.
      */
     public Find include(String pattern) {
         GlobFindFilter globs = (GlobFindFilter) filters.get("include");
@@ -62,6 +63,8 @@ public class Find {
      * 
      * @param pattern
      *            A glob pattern to match.
+     * @return This <code>Find</code> object in order to continue specifying
+     *         criteria.
      */
     public Find exclude(String pattern) {
         GlobFindFilter globs = (GlobFindFilter) filters.get("exclude");
@@ -83,6 +86,25 @@ public class Find {
     }
 
     /**
+     * Include only files that are <em>normal</em> files according to
+     * <code>File.isFile</code>. A files is <em>normal</em> if it is not a
+     * directory and satisfies additional system specific criteria. Files
+     * created in Java that are not directories are considered <em>normal</em>
+     * files.
+     * 
+     * @return This <code>Find</code> object in order to continue specifying
+     *         criteria.
+     */
+    public Find isFile() {
+        filters.put("file", new FindFilter() {
+            public boolean accept(File base, String filePath) {
+                return new File(base, filePath).isFile();
+            }
+        });
+        return this;
+    }
+
+    /**
      * Test the find conditions against the files in the given directory.
      * 
      * @param depth
@@ -98,7 +120,7 @@ public class Find {
         for (File file : dir.listFiles()) {
             String relative = Files.relativize(base, file).toString();
             boolean found = true;
-            for (FindFilter filter : filters.values()) { 
+            for (FindFilter filter : filters.values()) {
                 found = filter.accept(base, relative);
                 if (!found) {
                     break;
@@ -112,7 +134,7 @@ public class Find {
             }
         }
     }
-    
+
     /**
      * Recursively search the given directory for the files that match the
      * conditions of this query.
