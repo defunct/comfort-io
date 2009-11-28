@@ -10,7 +10,7 @@ public class GlobProject extends ProjectModule {
     public void build(Builder builder) {
         builder
             .cookbook(JavaProject.class)
-                .produces(new Artifact("com.goodworkalan/glob/0.1"))
+                .produces(new Artifact("com.goodworkalan/comfort-io/0.1"))
                 .main()
                     .depends()
                         .artifact(new Artifact("com.goodworkalan/cassandra/0.7"))
