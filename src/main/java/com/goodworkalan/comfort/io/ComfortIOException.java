@@ -16,6 +16,9 @@ public class ComfortIOException extends CassandraException {
     
     /** Unable to copy a file. */
     public static final int COPY_FAILURE = 101;
+    
+    /** Unable to slurp a file. */
+    public static final int SLURP_FAILURE = 102;
 
     /**
      * Create a glob exception with the given error code and the given cause.
