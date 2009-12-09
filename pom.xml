@@ -4,11 +4,11 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.goodworkalan</groupId>
-    <artifactId>glob</artifactId>
+    <artifactId>comfort-io</artifactId>
     <packaging>jar</packaging>
-    <version>0.1${version.suffix}</version>
+    <version>0.1.1</version>
 
-    <name>glob</name>
+    <name>comfort-io</name>
     <description>File sytem find, filter, and comfort library. </description>
 
     <organization>
