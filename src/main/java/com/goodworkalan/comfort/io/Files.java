@@ -41,8 +41,7 @@ public class Files {
             srcChannel.close();
             dstChannel.close();
         } catch (IOException e) {
-            throw new ComfortIOException(COPY_FAILURE, e)
-                .put("source", source).put("destination", destination);
+            throw new ComfortIOException(COPY_FAILURE, e, source, destination);
         }
     }
 
@@ -116,7 +115,7 @@ public class Files {
                 lines.add(line);
             }
         } catch (IOException e) {
-            throw new ComfortIOException(SLURP_FAILURE, e).put("file", file);
+            throw new ComfortIOException(SLURP_FAILURE, e, file);
         }
         return lines;
     }

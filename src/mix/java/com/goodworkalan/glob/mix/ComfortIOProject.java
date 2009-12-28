@@ -11,11 +11,6 @@ public class ComfortIOProject extends ProjectModule {
         builder
             .cookbook(JavaProject.class)
                 .produces(new Artifact("com.goodworkalan/comfort-io/0.1.1"))
-                .main()
-                    .depends()
-                        .artifact(new Artifact("com.goodworkalan/cassandra/0.7"))
-                        .end()
-                    .end()
                 .test()
                     .depends()
                         .artifact(new Artifact("org.testng/testng/5.10/jdk15"))
