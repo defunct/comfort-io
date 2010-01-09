@@ -55,7 +55,7 @@ public class ComfortIOException extends RuntimeException {
      */
     @Override
     public String getMessage() {
-        ResourceBundle bundle = ResourceBundle.getBundle(getClass().getPackage().getName() + ".mix.exceptions");
+        ResourceBundle bundle = ResourceBundle.getBundle(getClass().getPackage().getName() + ".exceptions");
         return String.format(bundle.getString(Integer.toString(code)), arguments);
     }
 }

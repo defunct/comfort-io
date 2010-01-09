@@ -29,8 +29,8 @@ public class FindTest {
         Set<String> files = new Find().find(new File("src/test/java"));
         assertTrue(files.contains("com"));
         assertTrue(files.contains("com/goodworkalan"));
-        assertTrue(files.contains("com/goodworkalan/glob"));
-        assertTrue(files.contains("com/goodworkalan/glob/FindTest.java"));
+        assertTrue(files.contains("com/goodworkalan/comfort/io"));
+        assertTrue(files.contains("com/goodworkalan/comfort/io/FindTest.java"));
     }
     
     /** Test the include condition. */
@@ -39,8 +39,8 @@ public class FindTest {
         Set<String> files = new Find().include("**/*.java").find(new File("src/test/java"));
         assertFalse(files.contains("com"));
         assertFalse(files.contains("com/goodworkalan"));
-        assertFalse(files.contains("com/goodworkalan/glob"));
-        assertTrue(files.contains("com/goodworkalan/glob/FindTest.java"));
+        assertFalse(files.contains("com/goodworkalan/comfort/io"));
+        assertTrue(files.contains("com/goodworkalan/comfort/io/FindTest.java"));
     }
     
     /** Test the exclude condition. */
@@ -49,8 +49,8 @@ public class FindTest {
         Set<String> files = new Find().include("**/*.java").exclude("**/FilesTest.java").find(new File("src/test/java"));
         assertFalse(files.contains("com"));
         assertFalse(files.contains("com/goodworkalan"));
-        assertFalse(files.contains("com/goodworkalan/glob"));
-        assertFalse(files.contains("com/goodworkalan/glob/FilesTest.java"));
-        assertTrue(files.contains("com/goodworkalan/glob/FindTest.java"));
+        assertFalse(files.contains("com/goodworkalan/comfort/io"));
+        assertFalse(files.contains("com/goodworkalan/comfort/io/FilesTest.java"));
+        assertTrue(files.contains("com/goodworkalan/comfort/io/FindTest.java"));
     }
 }

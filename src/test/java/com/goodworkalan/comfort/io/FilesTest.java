@@ -53,7 +53,7 @@ public class FilesTest {
         File junk = new File("target/junk");
         junk.mkdirs();
         File copy = new File(junk, "FileTest.java");
-        Files.copy(new File("src/test/java/com/goodworkalan/glob/FindTest.java"), copy);
+        Files.copy(new File("src/test/java/com/goodworkalan/comfort/io/FindTest.java"), copy);
         assertTrue(copy.exists());
         copy.delete();
         junk.delete();
