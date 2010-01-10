@@ -7,6 +7,7 @@ import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -76,5 +77,15 @@ public class FilesTest {
         path.add(new File("foo/bar"));
         path.add(new File("baz"));
         assertEquals(Files.path(path), "foo/bar:baz");
+    }
+    
+    /** Test directory based file. */
+    @Test
+    public void directoryFile() throws IOException {
+        File directory = new File(".").getCanonicalFile();
+        File file = null;
+        file = new File(directory, "dir");
+        file = new File(file, "file.txt");
+        assertEquals(file, Files.file(directory, "dir", "file.txt"));
     }
 }

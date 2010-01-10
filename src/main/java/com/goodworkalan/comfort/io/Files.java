@@ -97,6 +97,26 @@ public class Files {
     }
 
     /**
+     * Create a file path from the given list of file names using the given
+     * directory as a root.
+     * 
+     * @param directory
+     *            The directory root.
+     * @param names
+     *            A list of file named to catenate into a file path.
+     * @return A file path using the system file separator.
+     */
+    public final static File file(File directory, String...names) {
+        StringBuilder string = new StringBuilder();
+        String separator = "";
+        for (String name : names) {
+            string.append(separator).append(name);
+            separator = File.separator;
+        }
+        return new File(directory, string.toString());
+    }
+
+    /**
      * Slurp an entire file in to an array list of lines in the file. Line
      * endings are removed.
      * 
