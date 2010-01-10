@@ -34,12 +34,16 @@ public class Files {
     public final static void copy(File source, File destination) {
         try {
             FileChannel srcChannel = new FileInputStream(source).getChannel();
-            FileChannel dstChannel = new FileOutputStream(destination).getChannel();
-
-            dstChannel.transferFrom(srcChannel, 0, srcChannel.size());
-
-            srcChannel.close();
-            dstChannel.close();
+            try {
+                FileChannel dstChannel = new FileOutputStream(destination).getChannel();
+                try {
+                    dstChannel.transferFrom(srcChannel, 0, srcChannel.size());
+                } finally {
+                    dstChannel.close();
+                }
+            } finally {
+                srcChannel.close();
+            }
         } catch (IOException e) {
             throw new ComfortIOException(COPY_FAILURE, e, source, destination);
         }
@@ -131,8 +135,12 @@ public class Files {
         List<String> lines = new ArrayList<String>();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
-            while ((line = reader.readLine()) != null) {
-                lines.add(line);
+            try {
+                while ((line = reader.readLine()) != null) {
+                    lines.add(line);
+                }
+            } finally {
+                reader.close();
             }
         } catch (IOException e) {
             throw new ComfortIOException(SLURP_FAILURE, e, file);
