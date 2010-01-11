@@ -1,6 +1,13 @@
-GLOB
+COMFORT I/O
 
 File system find, filter and conviencnce methods for Java.
+
+    Source: http://github.com/bigeasy/comfort-io/tree/master
+    Documentation: http://wiki.github.com/bigeasy/comfort-io
+
+    Issues: http://bigeasy.lighthouseapp.com/projects/44239-comfort-io
+
+    Contact: alan@blogometer.com
 
 PURPOSE
 
