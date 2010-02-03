@@ -61,12 +61,14 @@ public class FilesTest {
     }
     
     /** Test a file copy I/O exception. */
-    @Test
+    @Test(expectedExceptions=ComfortIOException.class)
     public void copyFailure() {
         try {
             Files.copy(new File("src/test/java/com/goodworkalan/glob/Foo.java"), new File("target/junk"));
         } catch (ComfortIOException e) {
+            assertEquals(e.getMessage(), "Unable to copy file from (src/test/java/com/goodworkalan/glob/Foo.java) to (target/junk).");
             assertEquals(e.getCode(), ComfortIOException.COPY_FAILURE);
+            throw e;
         }
     }
     
