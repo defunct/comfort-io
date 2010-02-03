@@ -10,7 +10,5 @@
 	<classpathentry kind="var" path="M2_REPO/org/objenesis/objenesis/1.0/objenesis-1.0.jar" sourcepath="M2_REPO/org/objenesis/objenesis/1.0/objenesis-1.0-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/testng/testng/5.8/testng-5.8-jdk15.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/cassandra"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/notice"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
