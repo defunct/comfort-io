@@ -1,6 +1,5 @@
 package com.goodworkalan.comfort.io.mix;
 
-import com.goodworkalan.go.go.Artifact;
 import com.goodworkalan.mix.ProjectModule;
 import com.goodworkalan.mix.builder.Builder;
 import com.goodworkalan.mix.builder.JavaProject;
@@ -10,11 +9,11 @@ public class ComfortIOProject extends ProjectModule {
     public void build(Builder builder) {
         builder
             .cookbook(JavaProject.class)
-                .produces(new Artifact("com.goodworkalan/comfort-io/0.1.1"))
+                .produces("com.github.bigeasy.comfort-io/comfort-io/0.1.1")
                 .test()
                     .depends()
-                        .artifact(new Artifact("org.testng/testng/5.10/jdk15"))
-                        .artifact(new Artifact("org.mockito/mockito-core/1.6"))
+                        .include("org.testng/testng-jdk15/5.10")
+                        .include("org.mockito/mockito-core/1.6")
                         .end()
                     .end()
                 .end()
