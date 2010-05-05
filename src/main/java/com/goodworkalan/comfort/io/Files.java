@@ -4,10 +4,12 @@ import static com.goodworkalan.comfort.io.ComfortIOException.COPY_FAILURE;
 import static com.goodworkalan.comfort.io.ComfortIOException.SLURP_FAILURE;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
@@ -146,6 +148,22 @@ public class Files {
             throw new ComfortIOException(SLURP_FAILURE, e, file);
         }
         return lines;
+    }
+    
+    public final static void pour(File file, Collection<?> lines) {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+            try {
+                for (Object string : lines) {
+                    writer.write(string.toString());
+                    writer.write("\n");
+                }
+            } finally {
+                writer.close();
+            }
+        } catch (IOException e) {
+            throw new ComfortIOException(SLURP_FAILURE, e, file);
+        }
     }
     
     public final static File relativize(File base, File file) {
