@@ -150,6 +150,7 @@ public class Files {
         return lines;
     }
     
+    // TODO Document.
     public final static void pour(File file, Collection<?> lines) {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
@@ -166,6 +167,7 @@ public class Files {
         }
     }
     
+    // TODO Document.
     public final static File relativize(File base, File file) {
         LinkedList<File> parts = new LinkedList<File>();
         File iterator = file;
