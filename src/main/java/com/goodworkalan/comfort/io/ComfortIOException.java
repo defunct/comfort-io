@@ -16,8 +16,11 @@ public class ComfortIOException extends RuntimeException {
     /** Unable to copy a file. */
     public static final int COPY_FAILURE = 101;
     
-    /** Unable to slurp a file. */
-    public static final int SLURP_FAILURE = 102;
+    /** Unable to read a file. */
+    public static final int READ_FAILURE = 102;
+    
+    /** Unable to write a file. */
+    public static final int WRITE_FAILURE = 103;
     
     /** The error code. */
     private final int code;

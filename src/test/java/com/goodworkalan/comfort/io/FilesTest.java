@@ -1,20 +1,24 @@
 package com.goodworkalan.comfort.io;
 
+import static com.goodworkalan.comfort.io.ComfortIOException.READ_FAILURE;
+import static com.goodworkalan.comfort.io.ComfortIOException.WRITE_FAILURE;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertNull;
 import static org.testng.Assert.assertTrue;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.testng.annotations.Test;
-
-import com.goodworkalan.comfort.io.ComfortIOException;
-import com.goodworkalan.comfort.io.Files;
 
 /**
  * Unit tests for the Files utility methods.
@@ -45,6 +49,7 @@ public class FilesTest {
     @Test
     public void delete() {
         new File("target/junk/path").mkdirs();
+        Files.delete(new File("target/junk"));
         Files.delete(new File("target/junk"));
     }
     
@@ -89,5 +94,93 @@ public class FilesTest {
         file = new File(directory, "dir");
         file = new File(file, "file.txt");
         assertEquals(file, Files.file(directory, "dir", "file.txt"));
+    }
+    
+    /** Test creation of a file name through catenation. */
+    @Test
+    public void fileName() {
+        File file = new File("dir");
+        file = new File(file, "file.txt");
+        assertEquals(Files.file("dir", "file.txt"), file.toString());
+    }
+    
+    /** Test slurp lines. */
+    @Test
+    public void slurp() {
+        List<String> slurped = Files.slurp(new File("src/test/readable/lines.txt"));
+        assertEquals(slurped.get(1), "b");
+    }
+    
+    /** Test I/O exceptions during a slurp. */
+    @Test
+    public void splurpException() {
+        try {
+            Files.slurp(new File("target/missing.txt"));
+        } catch (ComfortIOException e) {
+            assertEquals(e.getCode(), READ_FAILURE);
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    /** Test pour lines. */
+    @Test
+    public void pour() throws IOException {
+        List<String> lines = Arrays.asList("a", "b", "c");
+        File read = new File("target/lines.txt");
+        try {
+            Files.pour(new File("target/lines.txt"), lines);
+            BufferedReader readers = new BufferedReader(new FileReader("target/lines.txt"));
+            assertEquals(readers.readLine(), "a");
+            assertEquals(readers.readLine(), "b");
+            assertEquals(readers.readLine(), "c");
+            assertNull(readers.readLine());
+        } finally {
+            read.delete();
+        }
+    }    
+    
+    /** Test I/O exceptions during a pour. */
+    @Test
+    public void pourException() {
+        try {
+            Files.pour(new File("target"), Arrays.asList("a"));
+        } catch (ComfortIOException e) {
+            assertEquals(e.getCode(), WRITE_FAILURE);
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    /** Test direct method. */
+    @Test
+    public void direct() {
+        assertEquals(Files.direct(new File("/a/./c")), new File("/a/c"));
+        assertEquals(Files.direct(new File("a")), new File("a"));
+        assertEquals(Files.direct(new File("a/.")), new File("a"));
+        assertEquals(Files.direct(new File("././a/.")), new File("a"));
+        assertEquals(Files.direct(new File("a/c/../b")), new File("a/b"));
+    }
+
+    /** Test relative parent directory with no parent directory. */
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void parentNoParent() {
+        Files.direct(new File("a/.."));
+    }
+    
+    /** Test relative parent directory with no self directory. */
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void parentNoSelf() {
+        Files.direct(new File(".."));
+    }
+
+    /** Test relative self directory with no self directory. */
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void selfNoSelf() {
+        Files.direct(new File("."));
+    }
+    
+    /** Test relativize for a file that is not the child of the base. */
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void badRelativize() {
+        Files.relativize(new File("/a/b"), new File("/c/b"));
     }
 }

@@ -33,7 +33,7 @@ public class FindTest {
         assertTrue(files.contains("com/goodworkalan/comfort/io/FindTest.java"));
     }
     
-    /** Test the include condition. */
+    /** Test  the include condition. */
     @Test
     public void include() {
         Set<String> files = new Find().include("**/*.java").find(new File("src/test/java"));
@@ -43,14 +43,43 @@ public class FindTest {
         assertTrue(files.contains("com/goodworkalan/comfort/io/FindTest.java"));
     }
     
+    /** Test multiple includes. */
+    @Test
+    public void includeMany() {
+        Set<String> files = new Find().include("**/*.java").include("**/*.properties").find(new File("src/test/java"));
+        assertFalse(files.contains("com"));
+        assertFalse(files.contains("com/goodworkalan"));
+        assertFalse(files.contains("com/goodworkalan/comfort/io"));
+        assertTrue(files.contains("com/goodworkalan/comfort/io/FindTest.java"));
+    }
+    
     /** Test the exclude condition. */
     @Test
     public void exclude() {
-        Set<String> files = new Find().include("**/*.java").exclude("**/FilesTest.java").find(new File("src/test/java"));
+        Set<String> files = new Find().include("**/*.java").exclude("**/GlobTest.java").exclude("**/FilesTest.java").find(new File("src/test/java"));
         assertFalse(files.contains("com"));
         assertFalse(files.contains("com/goodworkalan"));
         assertFalse(files.contains("com/goodworkalan/comfort/io"));
         assertFalse(files.contains("com/goodworkalan/comfort/io/FilesTest.java"));
+        assertFalse(files.contains("com/goodworkalan/comfort/io/GlobTest.java"));
         assertTrue(files.contains("com/goodworkalan/comfort/io/FindTest.java"));
+    }
+    
+    /** Test the is file condition. */
+    @Test
+    public void isFile() {
+        Set<String> files = new Find().include("**/a").isFile().find(new File("src/test/findable"));
+        assertFalse(files.contains("directory/a"));
+        assertTrue(files.contains("files/a"));
+    }
+    
+    
+    /** Test the has filters. */
+    @Test
+    public void hasFilters() {
+        Find find = new Find();
+        assertFalse(find.hasFilters());
+        find.include("**/a");
+        assertTrue(find.hasFilters());
     }
 }

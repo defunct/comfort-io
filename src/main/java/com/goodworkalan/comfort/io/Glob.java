@@ -37,11 +37,6 @@ public class Glob {
         this.matches = matches;
     }
     
-    // TODO Document.
-    public boolean match(File file) {
-        return match(file.toString());
-    }
-
     /**
      * Match against the given file.
      * 
@@ -49,8 +44,19 @@ public class Glob {
      *            The file path to match.
      * @return True if this glob matches the given file.
      */
-    public boolean match(String file) {
-        StringTokenizer tokens = new StringTokenizer(file, File.separator);
+    public boolean match(File file) {
+        return match(file.toString());
+    }
+
+    /**
+     * Match against the given file name.
+     * 
+     * @param fileName
+     *            The file path to match.
+     * @return True if this glob matches the given file name.
+     */
+    public boolean match(String fileName) {
+        StringTokenizer tokens = new StringTokenizer(fileName, File.separator);
         String[] parts = new String[tokens.countTokens()];
         int index = 0;
         while (tokens.hasMoreElements()) {
