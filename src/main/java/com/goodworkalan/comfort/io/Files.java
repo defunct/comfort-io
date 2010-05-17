@@ -58,10 +58,10 @@ public class Files {
      *            The file or directory to delete.
      * @return True if the file or directory was successfully deleted.
      */
-    public final static boolean delete(File file) {
+    public final static boolean unlink(File file) {
         if (file.isDirectory()) {
             for (File child : file.listFiles()) {
-                if (!delete(child)) {
+                if (!unlink(child)) {
                     return false;
                 }
             }

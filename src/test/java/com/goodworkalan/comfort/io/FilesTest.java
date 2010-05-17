@@ -42,15 +42,15 @@ public class FilesTest {
         File file = mock(File.class);
         when(file.isDirectory()).thenReturn(true);
         when(file.listFiles()).thenReturn(new File[] { undeletable });
-        assertFalse(Files.delete(file));
+        assertFalse(Files.unlink(file));
     }
     
     /** Test recursive deletion. */
     @Test
     public void delete() {
         new File("target/junk/path").mkdirs();
-        Files.delete(new File("target/junk"));
-        Files.delete(new File("target/junk"));
+        Files.unlink(new File("target/junk"));
+        Files.unlink(new File("target/junk"));
     }
     
     /** Test a file copy. */
