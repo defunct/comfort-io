@@ -259,7 +259,7 @@ public class Files {
      *            The file to relativize.
      * @return The relativized file.
      * @exception IllegalArgumentException
-     *                If the realativized file is not a child of the base file.
+     *                If the relativized file is not a child of the base file.
      */
     public final static File relativize(File base, File file) {
         LinkedList<File> parts = new LinkedList<File>();

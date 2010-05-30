@@ -19,7 +19,7 @@ public class ComfortIOProject implements ProjectModule {
     public void build(Builder builder) {
         builder
             .cookbook(JavaProject.class)
-                .produces("com.github.bigeasy.comfort-io/comfort-io/0.1.1.1")
+                .produces("com.github.bigeasy.comfort-io/comfort-io/0.1.1.2")
                 .depends()
                     .development("org.testng/testng-jdk15/5.10")
                     .development("org.mockito/mockito-core/1.6")
