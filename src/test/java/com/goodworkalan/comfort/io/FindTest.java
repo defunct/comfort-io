@@ -68,7 +68,7 @@ public class FindTest {
     /** Test the is file condition. */
     @Test
     public void isFile() {
-        Set<String> files = new Find().include("**/a").isFile().find(new File("src/test/findable"));
+        Set<String> files = new Find().include("**/a").filesOnly().find(new File("src/test/findable"));
         assertFalse(files.contains("directory/a"));
         assertTrue(files.contains("files/a"));
     }

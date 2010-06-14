@@ -95,7 +95,7 @@ public class Find {
      * @return This <code>Find</code> object in order to continue specifying
      *         criteria.
      */
-    public Find isFile() {
+    public Find filesOnly() {
         filters.put("file", new FindFilter() {
             public boolean accept(File base, String filePath) {
                 return new File(base, filePath).isFile();
