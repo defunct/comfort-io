@@ -1,7 +1,8 @@
 package com.goodworkalan.comfort.io;
 
 import static com.goodworkalan.comfort.io.ComfortIOException.COPY_FAILURE;
-import static com.goodworkalan.comfort.io.ComfortIOException.*;
+import static com.goodworkalan.comfort.io.ComfortIOException.READ_FAILURE;
+import static com.goodworkalan.comfort.io.ComfortIOException.WRITE_FAILURE;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -276,5 +277,26 @@ public class Files {
             relative = new File(relative, parts.removeFirst().getName());
         }
         return relative;
+    }
+
+    /**
+     * If the file does not exist, create an empty file, otherwise update the
+     * modified time.
+     * 
+     * @param file
+     *            The file to touch.
+     * @throws IOException
+     *             For any I/O error.
+     */
+    public final static void touch(File file) {
+        if (file.exists()) {
+            file.setLastModified(System.currentTimeMillis());
+        } else { 
+            try {
+                new FileOutputStream(file).close();
+            } catch (IOException e) {
+                throw new ComfortIOException(WRITE_FAILURE, e, file);
+            }
+        }
     }
 }

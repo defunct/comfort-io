@@ -183,4 +183,27 @@ public class FilesTest {
     public void badRelativize() {
         Files.relativize(new File("/a/b"), new File("/c/b"));
     }
+    
+    /** Test failure of touch. */
+    @Test(expectedExceptions = ComfortIOException.class)
+    public void untouchable() {
+        Files.touch(Files.file(new File("."), "does", "not", "exist.txt"));
+    }
+    
+    /** Test touch. */
+    @Test
+    public void touch() throws InterruptedException {
+        File touched = Files.file(new File("."), "target", "touched.txt");
+        if (touched.exists()) {
+            Files.unlink(touched);
+        }
+        Files.touch(touched);
+        assertTrue(touched.exists());
+        long createdAt = touched.lastModified();
+        long unmodifiedAt = System.currentTimeMillis();
+        Thread.sleep(1000);
+        Files.touch(touched);
+        assertFalse(createdAt == touched.lastModified());
+        assertTrue(unmodifiedAt < touched.lastModified());
+    }
 }
