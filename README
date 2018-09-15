@@ -1,6 +1,6 @@
 COMFORT I/O
 
-File system find, filter and conviencnce methods for Java.
+File system find, filter and convenience methods for Java.
 
     Source: http://github.com/bigeasy/comfort-io/tree/master
     Documentation: http://wiki.github.com/bigeasy/comfort-io
@@ -13,12 +13,12 @@ PURPOSE
 
 Glob builds lists of files from the file system using a query syntax. Glob also
 provides a handful of file system comfort methods, like temporary directories,
-file copy, directory copy, recurisve delete, java.util.regex based grep, file
+file copy, directory copy, recursive delete, java.util.regex based grep, file
 slurping and looping.
 
 MOTIVATION
 
-Glob is meant to make file operations comforatable, giving a Java programmer the
+Glob is meant to make file operations comfortable, giving a Java programmer the
 ability bash files around as if they were scripting.
 
 The Glob library adds a few missing methods to Java. Glob provides methods for
@@ -27,7 +27,7 @@ java.io.File objects.
 
 Glob adds some comfort, but stays close to the metal.
 
-Glog is not meant to be a virtual file system. Glob does not abstracts zip files
+Glob is not meant to be a virtual file system. Glob does not abstracts zip files
 or HTTP requests into a virtual file system. I'm not sure why that would be
-desireable. I can imagine that such a design goal would lead to cumbersome file
+desirable. I can imagine that such a design goal would lead to cumbersome file
 operations and opaque network operations. That will never be my goal for Glob.
